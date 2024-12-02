@@ -25,9 +25,8 @@ fun part2(reportList: List<List<Int>>): String {
         if(isSafe(getDiffList(report))) {
             safeCount++
         } else {
-            val temp = report.toMutableList()
             if(report.indices.any {
-                isSafe(getDiffList(temp.filterIndexed { index, _ -> index != it }))
+                isSafe(getDiffList(report.filterIndexed { index, _ -> index != it }))
             }) safeCount++
         }
     }
