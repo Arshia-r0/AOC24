@@ -11,27 +11,15 @@ fun day02() {
     println("part2:" + part2(reportList))
 }
 
-fun part1(reportList: List<List<Int>>): String {
-    var safeCount = 0
-    reportList.forEach { report ->
-        if(isSafe(getDiffList(report))) safeCount++
-    }
-    return safeCount.toString()
-}
+fun part1(reportList: List<List<Int>>): String =
+    reportList.count { isSafe(getDiffList(it)) }.toString()
 
-fun part2(reportList: List<List<Int>>): String {
-    var safeCount = 0
-    reportList.forEach { report ->
-        if(isSafe(getDiffList(report))) {
-            safeCount++
-        } else {
-            if(report.indices.any {
-                isSafe(getDiffList(report.filterIndexed { index, _ -> index != it }))
-            }) safeCount++
+fun part2(reportList: List<List<Int>>): String =
+    reportList.count { report ->
+        report.indices.any { r ->
+            isSafe(getDiffList(report.filterIndexed { index, _ -> index != r}))
         }
-    }
-    return safeCount.toString()
-}
+    }.toString()
 
 fun isSafe(diffList: List<Int>): Boolean =
     diffList.all{ it in 1..3 } || diffList.all{ it in -3..-1 }
