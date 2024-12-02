@@ -14,8 +14,7 @@ fun day02() {
 fun part1(reportList: List<List<Int>>): String {
     var safeCount = 0
     reportList.forEach { report ->
-        val diffList = getDiffList(report)
-        if(isSafe(diffList)) safeCount++
+        if(isSafe(getDiffList(report))) safeCount++
     }
     return safeCount.toString()
 }
