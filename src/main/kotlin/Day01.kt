@@ -10,20 +10,20 @@ fun day01() {
     } to data.map {
         it.slice(8..12).toInt()
     }
-    part1(lists)
-    part2(lists)
+    println("part1: " + part1(lists))
+    println("part2: " + part2(lists))
 }
 
-fun part1(data: Pair<List<Int>, List<Int>>) {
+fun part1(data: Pair<List<Int>, List<Int>>): String {
     var result = 0
     val lists = data.first.sorted() to data.second.sorted()
     lists.first.forEachIndexed { i, c ->
         result += abs(c - lists.second[i])
     }
-    println(result)
+    return result.toString()
 }
 
-fun part2(data: Pair<List<Int>, List<Int>>) {
+fun part2(data: Pair<List<Int>, List<Int>>): String {
     val cache = mutableMapOf<Int, Int>()
     var result = 0
     data.first.forEach {
@@ -36,5 +36,5 @@ fun part2(data: Pair<List<Int>, List<Int>>) {
         }
         result += cache[it]?.times(it) ?: 0
     }
-    println(result)
+    return result.toString()
 }
