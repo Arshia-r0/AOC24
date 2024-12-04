@@ -19,10 +19,6 @@ fun part1(data: List<String>): String {
     return count.toString()
 }
 
-fun part2(data: List<String>): String {
-    return ""
-}
-
 fun getMatches(list: List<String>): Int =
     list.sumOf { Regex("SAMX").findAll(it).count() } + list.sumOf { Regex("XMAS").findAll(it).count() }
 
@@ -30,15 +26,29 @@ fun <T> List<List<T>>.transpose(): List<List<T>> =
     (this[0].indices).map { i -> (this.indices).map { j -> this[j][i] } }
 
 fun getAllDiagonalsMap(list: List<List<Char>>): List<String> {
-    val row = list.size
-    val col = list[0].size
     val fdiag = mutableMapOf<Int, List<Char>>()
     val bdiag = mutableMapOf<Int, List<Char>>()
-    for(i in 0..<row) {
-        for(j in 0..<col) {
+    for(i in list.indices) {
+        for(j in list[0].indices) {
             fdiag[i+j] = fdiag[i+j]?.let { it + list[i][j] } ?: listOf(list[i][j])
             bdiag[i-j] = bdiag[i-j]?.let { it + list[i][j] } ?: listOf(list[i][j])
         }
     }
     return fdiag.values.map { it.joinToString("") } + bdiag.values.map { it.joinToString("") }
+}
+
+fun part2(data: List<String>): String {
+    var c = 0
+    for(i in data.indices) {
+        for (j in data[0].indices) {
+            if(i != 0 && j != 0 && i != data.lastIndex && j != data[0].lastIndex  && data[i][j] == 'A') {
+                if(checkAround(data, i, j)) c++
+            }
+        }
+    }
+    return c.toString()
+}
+
+fun checkAround(data: List<String>, i: Int, j: Int): Boolean {
+    if(data[i-1][j-1] == "X" || data)
 }
