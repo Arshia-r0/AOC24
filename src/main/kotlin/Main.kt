@@ -1,5 +1,5 @@
 package org.example
 
 fun main() {
-    day03()
+    day04()
 }
