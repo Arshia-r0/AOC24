@@ -15,8 +15,7 @@ fun part1(data: List<String>): String {
     val diagonal = getAllDiagonalsMap(data.map { it.toList() })
     count += getMatches(data)
     count += getMatches(transposed)
-    count += getMatches(diagonal.first)
-    count += getMatches(diagonal.second)
+    count += getMatches(diagonal)
     return count.toString()
 }
 
@@ -30,7 +29,7 @@ fun getMatches(list: List<String>): Int =
 fun <T> List<List<T>>.transpose(): List<List<T>> =
     (this[0].indices).map { i -> (this.indices).map { j -> this[j][i] } }
 
-fun getAllDiagonalsMap(list: List<List<Char>>): Pair<List<String>, List<String>> {
+fun getAllDiagonalsMap(list: List<List<Char>>): List<String> {
     val row = list.size
     val col = list[0].size
     val fdiag = mutableMapOf<Int, List<Char>>()
@@ -41,5 +40,5 @@ fun getAllDiagonalsMap(list: List<List<Char>>): Pair<List<String>, List<String>>
             bdiag[i-j] = bdiag[i-j]?.let { it + list[i][j] } ?: listOf(list[i][j])
         }
     }
-    return fdiag.values.map { it.joinToString("") } to bdiag.values.map { it.joinToString("") }
+    return fdiag.values.map { it.joinToString("") } + bdiag.values.map { it.joinToString("") }
 }
