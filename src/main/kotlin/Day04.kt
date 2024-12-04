@@ -41,14 +41,15 @@ fun part2(data: List<String>): String {
     var c = 0
     for(i in data.indices) {
         for (j in data[0].indices) {
-            if(i != 0 && j != 0 && i != data.lastIndex && j != data[0].lastIndex  && data[i][j] == 'A') {
-                if(checkAround(data, i, j)) c++
-            }
+            if(i == 0 || j == 0 || i == data.lastIndex || j == data[0].lastIndex  || data[i][j] != 'A') continue
+            if(checkXmas(data, i, j)) c++
         }
     }
     return c.toString()
 }
 
-fun checkAround(data: List<String>, i: Int, j: Int): Boolean {
-    if(data[i-1][j-1] == "X" || data)
+fun checkXmas(data: List<String>, i: Int, j: Int): Boolean {
+    if(data[i-1][j-1] == 'X' || data[i-1][j-1] == 'A' || data[i-1][j+1] == 'X' || data[i-1][j+1] == 'A' || data[i+1][j-1] == 'X' || data[i+1][j-1] == 'A' || data[i+1][j+1] == 'X' || data[i+1][j+1] == 'A') return false
+    if(data[i-1][j-1] == data[i+1][j+1] || data[i-1][j+1] == data[i+1][j-1]) return false
+    return true
 }
