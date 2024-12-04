@@ -10,13 +10,13 @@ fun day04() {
 
 fun part1(data: List<String>): String {
     var count = 0
-    count += getMatches(data)
     val transposed = data.map{ it.toList() }
         .transpose().map { it.joinToString("") }
+    val diagonal = getAllDiagonalsMap(data.map { it.toList() })
+    count += getMatches(data)
     count += getMatches(transposed)
-    val diagonal = getDiagonalMap(data.map { it.toList() })
-        .values.map { it.joinToString("") }
-    count += getMatches(diagonal)
+    count += getMatches(diagonal.first)
+    count += getMatches(diagonal.second)
     return count.toString()
 }
 
@@ -25,18 +25,21 @@ fun part2(data: List<String>): String {
 }
 
 fun getMatches(list: List<String>): Int =
-    list.sumOf { Regex("XMAS|SAMX").findAll(it).count() }
+    list.sumOf { Regex("SAMX").findAll(it).count() } + list.sumOf { Regex("XMAS").findAll(it).count() }
 
 fun <T> List<List<T>>.transpose(): List<List<T>> =
     (this[0].indices).map { i -> (this.indices).map { j -> this[j][i] } }
 
-fun getDiagonalMap(list: List<List<Char>>): Map<Int, List<Char>> {
-    val result = mutableMapOf<Int, List<Char>>()
-    for(i in list.indices) {
-        for((j, v) in list[i].withIndex()) {
-            val key = i - j
-            result[key] = result[key]?.plus(v) ?: listOf(v)
+fun getAllDiagonalsMap(list: List<List<Char>>): Pair<List<String>, List<String>> {
+    val row = list.size
+    val col = list[0].size
+    val fdiag = mutableMapOf<Int, List<Char>>()
+    val bdiag = mutableMapOf<Int, List<Char>>()
+    for(i in 0..<row) {
+        for(j in 0..<col) {
+            fdiag[i+j] = fdiag[i+j]?.let { it + list[i][j] } ?: listOf(list[i][j])
+            bdiag[i-j] = bdiag[i-j]?.let { it + list[i][j] } ?: listOf(list[i][j])
         }
     }
-    return result
+    return fdiag.values.map { it.joinToString("") } to bdiag.values.map { it.joinToString("") }
 }
