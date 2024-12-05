@@ -10,11 +10,11 @@ fun day01() {
     } to data.map {
         it.slice(8..12).toInt()
     }
-    println("part1: " + part1(lists))
+    println("part1: " + part51(lists))
     println("part2: " + part2(lists))
 }
 
-fun part1(data: Pair<List<Int>, List<Int>>): String {
+fun part51(data: Pair<List<Int>, List<Int>>): String {
     var result = 0
     val lists = data.first.sorted() to data.second.sorted()
     lists.first.forEachIndexed { i, c ->

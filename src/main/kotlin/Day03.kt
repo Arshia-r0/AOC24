@@ -4,14 +4,14 @@ import java.io.File
 
 fun day03() {
     val data = File("src/main/resources/day03.txt").readText()
-    println("part1: " + part1(data))
+    println("part1: " + part51(data))
     println("part2: " + part2(data))
 }
 
 const val mulPattern = "mul\\([0-9]{1,3},[0-9]{1,3}\\)"
 const val doPattern = "do\\(\\)|don't\\(\\)"
 
-fun part1(data: String): String {
+fun part51(data: String): String {
     return getMatchesAsList(mulPattern, data)
         .sumOf { multiplyElements(it) }
         .toString()

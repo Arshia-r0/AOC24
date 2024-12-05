@@ -7,11 +7,11 @@ fun day02() {
     val reportList = data.map { report ->
         report.split(" ").map(String::toInt)
     }
-    println("part1:" + part1(reportList))
+    println("part1:" + part51(reportList))
     println("part2:" + part2(reportList))
 }
 
-fun part1(reportList: List<List<Int>>): String =
+fun part51(reportList: List<List<Int>>): String =
     reportList.count { isSafe(getDiffList(it)) }.toString()
 
 fun part2(reportList: List<List<Int>>): String =
